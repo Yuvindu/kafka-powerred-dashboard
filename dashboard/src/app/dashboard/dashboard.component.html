@@ -1,0 +1,88 @@
+<div class="container">
+  <h1>Dashboard</h1>
+  <table class="table">
+    <thead>
+      
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <app-metric-card
+            title="Average Temperature (Last Minute)"
+            [value]="avgTemperatureMinute"
+            unit="°C"
+            class="text-primary"
+          ></app-metric-card>
+        </td>
+        <td>
+          <app-metric-card
+            title="Average Temperature (Last Hour)"
+            [value]="avgTemperatureHour"
+            unit="°C"
+            class="text-primary"
+          ></app-metric-card>
+        </td>
+        <td>
+          <app-metric-card
+            title="Maximum Temperature (Last Hour)"
+            [value]="maxTemperatureHour"
+            unit="°C"
+            class="text-danger"
+          ></app-metric-card>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <app-metric-card
+            title="Average Humidity (Last Minute)"
+            [value]="avgHumidityMinute"
+            unit="%"
+            class="text-success"
+          ></app-metric-card>
+        </td>
+        <td>
+          <app-metric-card
+            title="Average Humidity (Last Hour)"
+            [value]="avgHumidityHour"
+            unit="%"
+            class="text-success"
+          ></app-metric-card>
+        </td>
+        <td>
+          <app-metric-card
+            title="Maximum Humidity (Last Hour)"
+            [value]="maxHumidityHour"
+            unit="%"
+            class="text-danger"
+          ></app-metric-card>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <app-metric-card
+            title="Average Product Count (Last Minute)"
+            [value]="avgProductCountMinute"
+            unit=""
+            class="text-success"
+          ></app-metric-card>
+        </td>
+        <td>
+          <app-metric-card
+            title="Average Product Count (Last Hour)"
+            [value]="avgProductCountHour"
+            unit=""
+            class="text-success"
+          ></app-metric-card>
+        </td>
+        <td>
+          <app-metric-card
+            title="Maximum Product Count (Last Hour)"
+            [value]="maxProductCountHour"
+            unit=""
+            class="text-danger"
+          ></app-metric-card>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

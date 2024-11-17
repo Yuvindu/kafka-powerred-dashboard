@@ -1,0 +1,9 @@
+{
+    "/api": {
+      "target": "http://kafka-consumer:3001",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+    }
+  }
+  

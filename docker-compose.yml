@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  zookeeper:
+    image: zookeeper
+    container_name: zookeeper
+    ports:
+      - '2181:2181'
+    networks:
+      - kafka-network  
+    privileged: true
+
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    ports:
+      - '9092:9092'
+    networks:
+      - kafka-network  
+    depends_on:
+      - zookeeper
+    restart: always 
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    privileged: true
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - kafka-network  
+    environment:
+      REDIS_PASSWORD: secret 
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
+
+  kafka-producer:
+    image: rashmike/kafka-producer-image:latest
+    container_name: kafka-producer
+    ports:
+      - "3000:3000"
+    networks:
+      - kafka-network
+    depends_on:
+      - kafka
+    environment:
+      - KAFKA_BROKER=kafka:9092
+    restart: always
+
+  kafka-consumer:
+    image: rashmike/kafka-consumer-image:latest
+    container_name: kafka-consumer
+    ports:
+      - "3001:3001"
+    networks:
+      - kafka-network
+    depends_on:
+      - kafka
+    environment:
+      - KAFKA_BROKER=kafka:9092
+    restart: always
+
+  dashboard:
+    image: rashmike/dashboard-image:latest
+    container_name: dashboard
+    ports:
+      - "4200:4200"
+    networks:
+      - kafka-network
+    depends_on:
+      - kafka-consumer
+    restart: always
+
+networks:
+  kafka-network: 
+    driver: bridge
